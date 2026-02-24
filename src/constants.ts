@@ -59,3 +59,18 @@ export const PACKAGE_VERSION = typeof __PACKAGE_VERSION__ !== 'undefined' ? __PA
  * @see https://datatracker.ietf.org/doc/html/rfc7231#section-5.5.3
  */
 export const USER_AGENT = `freee-mcp/${PACKAGE_VERSION} (MCP Server; +https://github.com/freee/freee-mcp)`;
+
+/**
+ * Default port for HTTP server
+ */
+export const DEFAULT_HTTP_PORT = 3000;
+
+/**
+ * Default host for HTTP server
+ */
+export const DEFAULT_HTTP_HOST = '0.0.0.0';
+
+/**
+ * MCP endpoint path for HTTP server
+ */
+export const MCP_ENDPOINT_PATH = '/mcp';
