@@ -72,13 +72,14 @@ export async function makeApiRequest(
   params?: Record<string, unknown>,
   body?: Record<string, unknown>,
   baseUrl?: string,
+  accessToken?: string,
 ): Promise<unknown | BinaryFileResponse> {
   const apiUrl = baseUrl || getConfig().freee.apiUrl;
   const companyId = await getCurrentCompanyId();
 
-  const accessToken = await getValidAccessToken();
+  const resolvedAccessToken = accessToken ?? await getValidAccessToken();
 
-  if (!accessToken) {
+  if (!resolvedAccessToken) {
     throw new Error(
       `認証が必要です。freee_authenticate ツールを使用して認証を行ってください。\n` +
       `現在の事業所ID: ${companyId}\n` +
@@ -119,7 +120,7 @@ export async function makeApiRequest(
   const response = await fetch(url.toString(), {
     method,
     headers: {
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${resolvedAccessToken}`,
       'Content-Type': 'application/json',
       'User-Agent': USER_AGENT,
     },

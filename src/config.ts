@@ -1,5 +1,5 @@
 import { loadFullConfig } from './config/companies.js';
-import { DEFAULT_CALLBACK_PORT, AUTH_TIMEOUT_MS, FREEE_API_URL } from './constants.js';
+import { DEFAULT_CALLBACK_PORT, AUTH_TIMEOUT_MS, FREEE_API_URL, DEFAULT_HTTP_PORT, DEFAULT_HTTP_HOST } from './constants.js';
 
 export interface Config {
   freee: {
@@ -21,6 +21,10 @@ export interface Config {
   };
   auth: {
     timeoutMs: number;
+  };
+  http: {
+    port: number;
+    host: string;
   };
 }
 
@@ -95,6 +99,10 @@ export async function loadConfig(): Promise<Config> {
     },
     auth: {
       timeoutMs: AUTH_TIMEOUT_MS,
+    },
+    http: {
+      port: parseInt(process.env.HTTP_PORT || '', 10) || DEFAULT_HTTP_PORT,
+      host: process.env.HTTP_HOST || DEFAULT_HTTP_HOST,
     },
   };
 
